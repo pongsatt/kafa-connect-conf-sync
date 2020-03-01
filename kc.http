@@ -1,0 +1,54 @@
+###
+GET http://localhost:8083/connectors/
+
+###
+GET http://localhost:8083/connectors/inventory-connector
+Accept: application/json
+Content-Type: application/json
+
+###
+@name = create
+POST http://localhost:8083/connectors/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "inventory-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "debezium",
+    "database.password": "dbz",
+    "database.server.id": "184054",
+    "database.server.name": "dbserver1",
+    "database.whitelist": "inventory",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "database.history.kafka.topic": "schema-changes.inventory"
+  }
+}
+
+###
+@name = update
+PUT http://localhost:8083/connectors/inventory-connector/config
+Accept: application/json
+Content-Type: application/json
+
+{
+  "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+  "tasks.max": "1",
+  "database.hostname": "mysql",
+  "database.port": "3306",
+  "database.user": "debezium",
+  "database.password": "dbz",
+  "database.server.id": "184054",
+  "database.server.name": "dbserver1",
+  "database.whitelist": "inventory",
+  "database.history.kafka.bootstrap.servers": "kafka:9092",
+  "database.history.kafka.topic": "schema-changes.inventory"
+}
+
+###
+@name = delete
+DELETE http://localhost:8083/connectors/inventory-connector
